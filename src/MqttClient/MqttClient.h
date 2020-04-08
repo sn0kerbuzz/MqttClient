@@ -38,6 +38,7 @@ namespace MqttClient {
 		// GENERAL
 		void publish(const String& topic, const String& payload, bool retain = false);
 		void subscribe(const String& topic);
+		void unsubscribe(const String& topic);
 
 		// CONNECTION
 		void beginConnect();

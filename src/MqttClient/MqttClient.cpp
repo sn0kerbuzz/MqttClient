@@ -45,6 +45,11 @@ void MqttClient::Client::subscribe(const String& topic) {
 	this->m_client.subscribe(topic.c_str());
 }
 
+void MqttClient::Client::unsubscribe(const String& topic) {
+
+	this->m_client.unsubscribe(topic.c_str());
+}
+
 // CONNECTION
 
 void MqttClient::Client::beginConnect() {
