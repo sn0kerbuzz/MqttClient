@@ -8,7 +8,8 @@
 
 #define WIFI_SSID "WIFI-SSID"
 #define WIFI_PASSWORD "WIFI-PASSWORD"
-#define IP_ADDRESS "YOUR-MQTT-BROKER-IP"
+#define MQTT_IP_ADDRESS "YOUR-MQTT-BROKER-IP"
+#define MQTT_PORT 1883
 
 MqttClient::Client client;
 
@@ -31,9 +32,9 @@ void setup() {
 	}
 
 	IPAddress ipAddress;
-	ipAddress.fromString(IP_ADDRESS);
+	ipAddress.fromString(MQTT_IP_ADDRESS);
 
-	client.setServer(ipAddress, 1884);
+	client.setServer(ipAddress, MQTT_PORT);
 	client.setClientName("Example 1");
 	client.setWill("will/topic", "willPayload");
 
