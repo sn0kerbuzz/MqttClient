@@ -68,5 +68,10 @@ void handleMqttDisconnected(MqttClient::Reason reason) {
 void handleMqttMessageReceived(const String& topic, const String& payload) {
 
 	Serial.println("Message received");
-	Serial.println(topic + ": " + payload);
+
+	String finalMessage = topic;
+	finalMessage += ": ";
+	finalMessage += payload;
+
+	Serial.println(finalMessage);
 }
