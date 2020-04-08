@@ -1,0 +1,29 @@
+{
+    "name": "MqttClient",
+    "description": "A client library for MQTT messaging.",
+    "version": "0.0.1",
+    "keywords": "mqtt, mqtt-client, iot",
+    "authors": {
+        "name": "Andrei Balasescu",
+        "email": "abalasescudev@gmail.com",
+        "maintainer": true
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sn0kerbuzz/MqttClient.git"
+    },
+    "export": {
+        "include": [
+            "lib/*"
+        ]
+    },
+    "examples": "examples/*.cpp",
+    "frameworks": "arduino",
+    "platforms": [
+        "espressif"
+    ],
+    "dependencies":{
+        "PubSubClient": "~2.7"
+    }
+}
