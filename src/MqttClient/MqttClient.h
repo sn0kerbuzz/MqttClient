@@ -36,8 +36,8 @@ namespace MqttClient {
 		void loop();
 
 		// GENERAL
-		void publish(String topic, String payload, bool retain = false);
-		void subscribe(String topic);
+		void publish(const String& topic, const String& payload, bool retain = false);
+		void subscribe(const String& topic);
 
 		// CONNECTION
 		void beginConnect();
@@ -52,10 +52,10 @@ namespace MqttClient {
 		void setDisconnectedCallback(Callbacks::DisconnectedCallback onDisconnected);
 		void setMessageReceivedCallback(Callbacks::MessageReceivedCallback onMessageReceived);
 
-		void setClientName(String clientName);
-		void setServer(IPAddress server, unsigned port = 1883);
-		void setCredentials(String user, String password);
-		void setWill(String willTopic, String willPayload);
+		void setClientName(const String& clientName);
+		void setServer(const IPAddress& server, unsigned port = 1883);
+		void setCredentials(const String& user, const String& password);
+		void setWill(const String& willTopic, const String& willPayload);
 
 	private:
 		// CALLBACKS
@@ -74,7 +74,7 @@ namespace MqttClient {
 		PubSubClient m_client;
 
 		IPAddress m_serverIp;
-		unsigned m_port;
+		unsigned m_port { 1883 };
 
 		String m_clientName;
 		String m_user;
@@ -83,8 +83,8 @@ namespace MqttClient {
 		String m_willTopic;
 		String m_willPayload;
 
-		bool m_tryConnection;
-		bool m_wasConnected;
+		bool m_tryConnection { false };
+		bool m_wasConnected { false };
 
 		Reason getDisconnectReason();
 	};

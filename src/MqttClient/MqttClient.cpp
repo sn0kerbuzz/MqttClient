@@ -8,11 +8,9 @@ using namespace std::placeholders;
 
 // LIFECYCLE
 
-MqttClient::Client::Client() {
-
-	this->m_wifiClient = WiFiClient();
-
-	this->m_client = PubSubClient(this->m_wifiClient);
+MqttClient::Client::Client() :
+	m_client (PubSubClient(m_wifiClient))
+{
 	this->m_client.setCallback(std::bind(&Client::handleMessageReceived, this, _1, _2, _3));
 }
 
@@ -37,12 +35,12 @@ void MqttClient::Client::loop() {
 
 // GENERAL
 
-void MqttClient::Client::publish(String topic, String payload, bool retain) {
+void MqttClient::Client::publish(const String& topic, const String& payload, bool retain) {
 
 	this->m_client.publish(topic.c_str(), payload.c_str(), retain);
 }
 
-void MqttClient::Client::subscribe(String topic) {
+void MqttClient::Client::subscribe(const String& topic) {
 
 	this->m_client.subscribe(topic.c_str());
 }
@@ -106,12 +104,12 @@ void MqttClient::Client::setMessageReceivedCallback(MqttClient::Callbacks::Messa
 	this->m_onMessageReceived = onMessageReceived;
 }
 
-void MqttClient::Client::setClientName(String clientName) {
+void MqttClient::Client::setClientName(const String& clientName) {
 
 	this->m_clientName = clientName;
 }
 
-void MqttClient::Client::setServer(IPAddress server, unsigned int port) {
+void MqttClient::Client::setServer(const IPAddress& server, unsigned int port) {
 
 	this->m_serverIp = server;
 	this->m_port = port;
@@ -119,13 +117,13 @@ void MqttClient::Client::setServer(IPAddress server, unsigned int port) {
 	this->m_client.setServer(this->m_serverIp, this->m_port);
 }
 
-void MqttClient::Client::setCredentials(String user, String password) {
+void MqttClient::Client::setCredentials(const String& user, const String& password) {
 
 	this->m_user = user;
 	this->m_password = password;
 }
 
-void MqttClient::Client::setWill(String willTopic, String willPayload) {
+void MqttClient::Client::setWill(const String& willTopic, const String& willPayload) {
 
 	this->m_willTopic = willTopic;
 	this->m_willPayload = willPayload;
@@ -178,7 +176,7 @@ void MqttClient::Client::handleMessageReceived(const char *topic, byte *payloadD
 
 	payloadData[length] = '\0';
 
-	String topicString = String((char*)topic);
+	String topicString = String(topic);
 	String payloadString = String((char *) payloadData);
 
 	if (this->m_onMessageReceived) {
