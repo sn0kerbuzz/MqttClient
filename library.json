@@ -13,11 +13,6 @@
         "type": "git",
         "url": "https://github.com/sn0kerbuzz/MqttClient.git"
     },
-    "export": {
-        "include": [
-            "lib/*"
-        ]
-    },
     "examples": "examples/*.cpp",
     "frameworks": "arduino",
     "platforms": [
