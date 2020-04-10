@@ -69,7 +69,7 @@ bool MqttClient::Client::connect() {
 		willPayload = this->m_willPayload.c_str();
 	}
 
-	bool connectionEstablished = this->m_client.connect(this->m_clientName.c_str(), this->m_user.c_str(), this->m_password.c_str(), willTopic, 0, true, willPayload);
+	bool connectionEstablished = this->m_client.connect(this->m_clientName.c_str(), this->m_user.c_str(), this->m_password.c_str(), willTopic, 0, this->m_willRetain, willPayload);
 
 	if (connectionEstablished) {
 		this->handleConnectionEstablished();
@@ -128,10 +128,11 @@ void MqttClient::Client::setCredentials(const String& user, const String& passwo
 	this->m_password = password;
 }
 
-void MqttClient::Client::setWill(const String& willTopic, const String& willPayload) {
+void MqttClient::Client::setWill(const String& willTopic, const String& willPayload, bool retain) {
 
 	this->m_willTopic = willTopic;
 	this->m_willPayload = willPayload;
+	this->m_willRetain = retain;
 }
 
 // PRIVATE
