@@ -56,7 +56,7 @@ namespace MqttClient {
 		void setClientName(const String& clientName);
 		void setServer(const IPAddress& server, unsigned port = 1883);
 		void setCredentials(const String& user, const String& password);
-		void setWill(const String& willTopic, const String& willPayload);
+		void setWill(const String& willTopic, const String& willPayload, bool retain = true);
 
 	private:
 		// CALLBACKS
@@ -83,6 +83,7 @@ namespace MqttClient {
 
 		String m_willTopic;
 		String m_willPayload;
+		bool m_willRetain;
 
 		bool m_tryConnection { false };
 		bool m_wasConnected { false };
