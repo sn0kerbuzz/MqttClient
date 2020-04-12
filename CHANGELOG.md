@@ -6,7 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.0.1] - 2017-04-10
+## [1.0.0] - 2020-04-12
+
+### Added
+
+- Added unique callbacks for subscribe.
+- Added example for unique callbacks for subscribe.
+
+### Fixed
+
+- Fixed client disconnect when subscribing to an empty topic.
+
+## [0.0.1] - 2020-04-10
 
 ### Added
 
