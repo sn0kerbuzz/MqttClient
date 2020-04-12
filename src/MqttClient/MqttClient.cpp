@@ -45,9 +45,20 @@ void MqttClient::Client::subscribe(const String& topic) {
 	this->m_client.subscribe(topic.c_str());
 }
 
+void MqttClient::Client::subscribe(const String &topic, MqttClient::Callbacks::MessageReceivedCallback callback) {
+
+	this->subscribe(topic);
+
+	this->m_subscribers[topic] = callback;
+}
+
 void MqttClient::Client::unsubscribe(const String& topic) {
 
 	this->m_client.unsubscribe(topic.c_str());
+
+	if (this->m_subscribers.find(topic) != this->m_subscribers.end()) {
+		this->m_subscribers.erase(topic);
+	}
 }
 
 // CONNECTION
@@ -185,8 +196,14 @@ void MqttClient::Client::handleMessageReceived(const char *topic, byte *payloadD
 	String topicString = String(topic);
 	String payloadString = String((char *) payloadData);
 
-	if (this->m_onMessageReceived) {
-		this->m_onMessageReceived(topicString, payloadString);
+	MqttClient::Callbacks::MessageReceivedCallback callback = this->m_subscribers[topicString];
+
+	if (callback) {
+		callback(topicString, payloadString);
+	} else {
+		if (this->m_onMessageReceived) {
+			this->m_onMessageReceived(topicString, payloadString);
+		}
 	}
 }
 
