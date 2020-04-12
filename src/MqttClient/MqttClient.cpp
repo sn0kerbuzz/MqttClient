@@ -42,10 +42,18 @@ void MqttClient::Client::publish(const String& topic, const String& payload, boo
 
 void MqttClient::Client::subscribe(const String& topic) {
 
+	if (topic.isEmpty()) {
+		return;
+	}
+
 	this->m_client.subscribe(topic.c_str());
 }
 
 void MqttClient::Client::subscribe(const String &topic, MqttClient::Callbacks::MessageReceivedCallback callback) {
+
+	if (topic.isEmpty()) {
+		return;
+	}
 
 	this->subscribe(topic);
 
@@ -53,6 +61,10 @@ void MqttClient::Client::subscribe(const String &topic, MqttClient::Callbacks::M
 }
 
 void MqttClient::Client::unsubscribe(const String& topic) {
+
+	if (topic.isEmpty()) {
+		return;
+	}
 
 	this->m_client.unsubscribe(topic.c_str());
 
