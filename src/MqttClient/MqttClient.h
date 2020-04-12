@@ -5,6 +5,7 @@
 #pragma once
 
 #include <functional>
+#include <map>
 
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
@@ -37,6 +38,9 @@ namespace MqttClient {
 
 		// GENERAL
 		void publish(const String& topic, const String& payload, bool retain = false);
+
+		void subscribe(const String& topic, Callbacks::MessageReceivedCallback callback);
+
 		void subscribe(const String& topic);
 		void unsubscribe(const String& topic);
 
@@ -65,6 +69,8 @@ namespace MqttClient {
 		Callbacks::MessageReceivedCallback m_onMessageReceived;
 
 		// HANDLERS
+		std::map<String, Callbacks::MessageReceivedCallback> m_subscribers;
+
 		void handleMessageReceived(const char* topic, byte* payloadData, unsigned int length);
 
 		void handleConnectionEstablished();
